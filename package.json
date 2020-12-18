@@ -38,9 +38,5 @@
   "main": "index.js",
   "devDependencies": {},
   "author": "Alexander Kessaris",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/akessaris/foodie/issues"
-  },
-  "homepage": "https://github.com/akessaris/foodie#readme"
+  "license": "ISC"
 }
