@@ -8,8 +8,6 @@ const dotenv = require('dotenv');
 process.env.NODE_ENV = "production";
 
 module.exports = () => {
-  console.log(dotenv.config().parsed);
-
   const env = dotenv.config().parsed;
 
   const envKeys = Object.keys(env).reduce((prev, next) => {
