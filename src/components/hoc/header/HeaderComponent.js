@@ -11,4 +11,4 @@ export default function HeaderComponent() {
       </NavLink>
     </nav>
   );
-};
+}
