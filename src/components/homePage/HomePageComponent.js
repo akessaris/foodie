@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 const HomePageComponent = () => {
   const history = useHistory();
 
-  const [zip_code, setZipcode] = useState();
+  const [zip_code, setZipcode] = useState('');
 
   const handleChange = (event) => {
     setZipcode(event.target.value);

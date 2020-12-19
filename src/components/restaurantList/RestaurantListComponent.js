@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
-import mockRestaurantData from '../../api/MOCK_DATA.json';
+import { useHistory, useLocation } from 'react-router-dom';
+import { getRestaurants } from '../../api/restaurantApi';
 
-const restaurantListComponent = (props) => {
-  // TODO: replace with API call or store
+const restaurantListComponent = () => {
+  const { state: { search } } = useLocation();
+  const history = useHistory();
+
   const [restaurants, setRestaurants] = useState([]);
 
-  const getRestaurants = () => {
-    return [...mockRestaurantData];
-  };
-
-  useEffect(() => {
-    setRestaurants(getRestaurants());
+  useEffect(async () => {
+    const { data: { data } } = await getRestaurants(search) || restaurants;
+    setRestaurants(data);
   },[]);
 
   const goToRestaurantMenu = (id) => {
-    props.history.push(`/restaurants/${id}`);
+    history.push(`/restaurants/${id}`);
   };
 
   return (
@@ -25,18 +24,16 @@ const restaurantListComponent = (props) => {
         <thead>
           <tr>
             <th>Name</th>
-            <th>Rating</th>
             <th>Cuisine</th>
           </tr>
         </thead>
 
         <tbody>
           {
-            restaurants.map(({ id, name, rating, cusine }) => (
-              <tr key={id} onClick={() => goToRestaurantMenu(id)}>
-                <td>{name}</td>
-                <td>{rating}</td>
-                <td>{cusine}</td>
+            restaurants.map(({ restaurant_id, restaurant_name, cuisines }) => (
+              <tr key={restaurant_id} onClick={() => goToRestaurantMenu(restaurant_id)}>
+                <td>{restaurant_name}</td>
+                <td>{cuisines}</td>
               </tr>
             ))
           }
@@ -46,4 +43,4 @@ const restaurantListComponent = (props) => {
   );
 };
 
-export default withRouter(restaurantListComponent);
+export default restaurantListComponent;
