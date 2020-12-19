@@ -22,14 +22,14 @@ const restaurantListComponent = () => {
     setLoading(false);
   },[]);
 
-  const goToRestaurantMenu = (id) => {
-    history.push(`/restaurants/${id}`);
+  const goToRestaurantMenu = ({ id, name }) => {
+    history.push(`/restaurants/${id}`, { name, id });
   };
 
-  const restaurantList = restaurants.map(({ restaurant_id, restaurant_name, cuisines }) => (
-    <tr key={restaurant_id} onClick={() => goToRestaurantMenu(restaurant_id)}>
-      <td>{restaurant_name}</td>
-      <td>{cuisines}</td>
+  const restaurantList = restaurants.map(({ restaurant_id: id, restaurant_name: name, cuisines }) => (
+    <tr key={id} onClick={() => goToRestaurantMenu({ name, id })}>
+      <td>{name}</td>
+      <td>{cuisines.join(', ')}</td>
     </tr>
   ));
 
