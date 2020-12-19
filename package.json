@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start:dev": "webpack-dev-server --config webpack.config.dev.js --port 3000",
-    "build": "webpack --config webpack.config.prod.js",
+    "build": "node ./scripts/createEnv.js && webpack --config webpack.config.prod.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

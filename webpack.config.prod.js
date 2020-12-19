@@ -3,10 +3,20 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const webpackBundleAnalyzer = require("webpack-bundle-analyzer");
+const dotenv = require('dotenv');
 
 process.env.NODE_ENV = "production";
 
 module.exports = () => {
+  console.log(dotenv.config().parsed);
+
+  const env = dotenv.config().parsed;
+
+  const envKeys = Object.keys(env).reduce((prev, next) => {
+    prev[`process.env.${next}`] = JSON.stringify(env[next]);
+    return prev;
+  }, {});
+
   return {
     mode: "production",
     target: "web",
@@ -18,6 +28,8 @@ module.exports = () => {
       filename: "bundle.js"
     },
     plugins: [
+      new webpack.DefinePlugin(envKeys),
+
       // Display bundle stats
       new webpackBundleAnalyzer.BundleAnalyzerPlugin({ analyzerMode: "static" }),
   
