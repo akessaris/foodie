@@ -1,7 +1,9 @@
 import axios from 'axios';
 
-const instance = axios.create({
+export const restaurantEndpoint = axios.create({
   baseURL: 'https://api.documenu.com/v2'
 });
 
-export default instance;
+export const recipeEndpoint = axios.create({
+  baseURL: 'https://api.edamam.com'
+});

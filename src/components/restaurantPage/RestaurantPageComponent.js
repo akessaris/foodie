@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { getRecipeForItem } from '../../api/recipeApi';
 import { getMenuItems } from '../../api/restaurantApi';
 import SpinnerComponent from '../shared/spinnerComponent/SpinnerComponent';
 
@@ -21,8 +22,12 @@ export default function RestaurantPageComponent() {
     setLoading(false);
   },[]);
 
+  const getRecipe = async (item) => {
+    await getRecipeForItem(item);
+  }
+
   const menuItemList = menuItems.map(({ menu_item_name: name, menu_item_price: price, menu_item_description: desc }) => (
-    <tr key={id}>
+    <tr key={id} onClick={ () => getRecipe(name) }>
       <td>{name}</td>
       <td>{price}</td>
       <td>{desc}</td>

@@ -1,22 +1,17 @@
-import { handleResponse, handleError, convertObjToUrl } from "./apiUtils";
-import axios from './axios';
-const REACT_APP_RESTAURANT_API_KEY = process.env.REACT_APP_RESTAURANT_API_KEY;
-
-const getApiHeaders = () => {
-  return { 'X-API-KEY': REACT_APP_RESTAURANT_API_KEY };
-}
+import { handleResponse, handleError, convertObjToUrl, getApiHeaders } from "./apiUtils";
+import { restaurantEndpoint } from './axios';
 
 export async function getRestaurants(searchObj) {
   const urlParams = convertObjToUrl(searchObj);
-  const headers = getApiHeaders();
-  return axios.get(`/restaurants/${urlParams}`, { headers })
+  const headers = getApiHeaders('restaurants');
+  return restaurantEndpoint.get(`/restaurants/${urlParams}`, { headers })
     .then(handleResponse)
     .catch(handleError);
 }
 
 export async function getMenuItems(restaurantId) {
-  const headers = getApiHeaders();
-  return axios.get(`/restaurant/${restaurantId}/menuItems`, { headers })
+  const headers = getApiHeaders('restaurants');
+  return restaurantEndpoint.get(`/restaurant/${restaurantId}/menuItems`, { headers })
     .then(handleResponse)
     .catch(handleError);
 }
